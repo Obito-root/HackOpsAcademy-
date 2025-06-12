@@ -2,35 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>How Linux Commands Work</title>
+  <title>Linux Commands Explained | HackOps Academy</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-  <div class="sidebar">
-    <!-- your sidebar links here -->
-  </div>
+  <header>
+    <h1>💻 HackOps Academy - Linux Commands</h1>
+    <nav>
+      <a href="../index.html">Home</a> |
+      <a href="beginner.html">← Back to Chapters</a>
+    </nav>
+  </header>
 
-  <div class="content-wrapper">
-    <header><h1 class="hacker-title">HackOps Academy</h1></header>
+  <main>
+    <section>
+      <h2>📘 Chapter 3: How Linux Commands Work</h2>
+      <p>Linux commands follow a structured syntax to perform powerful actions. Understanding this structure is essential for every ethical hacker.</p>
 
-    <main>
-      <section>
-        <h2>Chapter 3: How Linux Commands Work</h2>
-        <h3>1. Basic Structure of a Linux Commands</h3>
-        
-       <h4>[command (option/flags) (arguments)] </h4>
-       <p>example:-</p>
-       <p>[apt install nmap -y] </p>
-       <p> here how it works:-</p>
-       <p>•apt--command </p>
-       <p>•install--subcommand</p>
-       <p>•nmap--argument</p>
-       <p>•-y--option/flag</p>
-       <p><a href="beginner.html">&larr; Back to Chapters</a></p>
-      </section>
-    </main>
+      <h3>⚙️ Basic Structure</h3>
+      <pre>
+[command] [subcommand] [argument] [option/flag]
+      </pre>
+      <p><strong>Example:</strong></p>
+      <pre>
+apt install nmap -y
+      </pre>
 
-    <footer><p>&copy; 2025 HackOps Academy</p></footer>
-  </div>
+      <h3>🔍 Breakdown</h3>
+      <ul>
+        <li><strong>apt</strong> → Main command (Advanced Package Tool)</li>
+        <li><strong>install</strong> → Subcommand (Action to perform)</li>
+        <li><strong>nmap</strong> → Argument (Package name)</li>
+        <li><strong>-y</strong> → Option/Flag (Auto-confirmation)</li>
+      </ul>
+
+      <h3>💡 Tip</h3>
+      <blockquote>Always read the <code>--help</code> section of a command to explore all available flags and options. For example, try: <code>nmap --help</code></blockquote>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
+  </footer>
 </body>
 </html>
