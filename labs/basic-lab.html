@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 1: Login Page (HTML Only)</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🧪 Lab 1: Simple Login Page</h1>
+    <p>Try basic HTML injection or form bypassing here</p>
+    <a href="../index.html">← Back to Home</a>
+  </header>
+
+  <main>
+    <form onsubmit="checkLogin(); return false;">
+      <label for="username">Username:</label><br>
+      <input type="text" id="username" required><br><br>
+
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" required><br><br>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="result"></p>
+  </main>
+
+  <script>
+    function checkLogin() {
+      var u = document.getElementById("username").value;
+      var p = document.getElementById("password").value;
+
+      if (u === "admin" && p === "hackme") {
+        document.getElementById("result").innerHTML = "✅ Login Success!";
+      } else {
+        document.getElementById("result").innerHTML = "❌ Wrong credentials!";
+      }
+    }
+  </script>
+</body>
+</html>
