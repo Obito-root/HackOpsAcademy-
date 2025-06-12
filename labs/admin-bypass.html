@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 3: Admin Panel Bypass</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🧪 Lab 3: Insecure Admin Panel</h1>
+    <p>Try bypassing login using SQL-like logic.</p>
+    <a href="../index.html">← Back to Home</a>
+  </header>
+
+  <main>
+    <form onsubmit="return login()">
+      <label>Username:</label><br>
+      <input type="text" id="user"><br><br>
+
+      <label>Password:</label><br>
+      <input type="password" id="pass"><br><br>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="result" style="font-weight: bold;"></p>
+
+    <div id="admin-panel" style="display:none; margin-top:20px;">
+      <h2>🎉 Welcome to the Admin Panel</h2>
+      <p>Flag: <code>HACKOPS{auth_bypass_success}</code></p>
+    </div>
+  </main>
+
+  <script>
+    function login() {
+      var u = document.getElementById("user").value;
+      var p = document.getElementById("pass").value;
+
+      // Weak login logic (vulnerable)
+      if ((u.includes("admin") && p === "12345") || u.includes("'") || p.includes("'")) {
+        document.getElementById("result").innerText = "✅ Access Granted!";
+        document.getElementById("admin-panel").style.display = "block";
+      } else {
+        document.getElementById("result").innerText = "❌ Access Denied!";
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>
