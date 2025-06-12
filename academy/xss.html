@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XSS - Cross Site Scripting | HackOps Academy</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>📚 HackOps Academy - XSS Notes</h1>
+    <nav>
+      <a href="../index.html">Home</a> |
+      <a href="../dashboard.html">Dashboard</a> |
+      <a href="xss.html">This Note</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>💥 What is XSS?</h2>
+      <p>Cross-site scripting (XSS) is a client-side code injection vulnerability...</p>
+      
+      <h3>🧪 Types of XSS</h3>
+      <ul>
+        <li><strong>Stored XSS</strong>: Payload stored in DB</li>
+        <li><strong>Reflected XSS</strong>: Payload reflected from request</li>
+        <li><strong>DOM-based XSS</strong>: Exploiting browser-side JS</li>
+      </ul>
+
+      <h3>📌 Example Payload</h3>
+      <pre>
+&lt;script&gt;alert('XSS');&lt;/script&gt;
+      </pre>
+
+      <h3>🛡️ Prevention</h3>
+      <ul>
+        <li>Use proper output encoding</li>
+        <li>Sanitize inputs</li>
+        <li>Use CSP (Content Security Policy)</li>
+      </ul>
+
+      <h3>💡 Tip</h3>
+      <blockquote>Try injecting payloads in input fields, URL parameters, or hidden fields.</blockquote>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
+  </footer>
+</body>
+</html>
