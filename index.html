@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'none'; form-action 'self';" />
+  <title>HackOps Academy | Ethical Hacking Platform</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<!-- ✅ Auth Check -->
+<script>
+  if (!localStorage.getItem("authUser")) {
+    window.location.href = "login.html";
+  }
+</script>
+
+<!-- ✅ Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <h2>📂 Topics</h2>
+  <ul>
+    <li><strong>Beginner</strong></li>
+    <li><a href="beginner/sql-injection.html">SQL Injection</a></li>
+    <li><a href="beginner/xss.html">XSS</a></li>
+
+    <li><strong>Intermediate</strong></li>
+    <li><a href="intermediate/csrf.html">CSRF</a></li>
+    <li><a href="intermediate/jwt.html">JWT</a></li>
+
+    <li><strong>Advanced</strong></li>
+    <li><a href="advanced/ssrf.html">SSRF</a></li>
+    <li><a href="advanced/rce.html">RCE</a></li>
+  </ul>
+</nav>
+
+<!-- ✅ Content Wrapper -->
+<div class="content-wrapper">
+
+  <!-- ✅ Hero Section -->
+  <header>
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hacker-title" id="tapTarget">Welcome to<br>HackOps Academy</h1>
+        <p class="typewriter">Learn Ethical Hacking</p>
+        <p class="user-welcome">👋 Welcome, <span id="userDisplay"></span>!</p>
+        <button onclick="logout()" class="cta-button">🚪 Logout</button>
+      </div>
+    </section>
+  </header>
+
+  <!-- ✅ Main Content -->
+  <main>
+    <section>
+      <h2>🚀 Start Learning</h2>
+      <ul>
+        <li><a href="academy/beginner.html">Beginner Topics</a></li>
+        <li><a href="academy/intermediate.html">Intermediate</a></li>
+        <li><a href="academy/advanced.html">Advanced</a></li>
+      </ul>
+
+      <h2>🧪 Practice Labs</h2>
+      <ul>
+        <li><a href="labs/basic-lab.html">Lab 1: Simple Login</a></li>
+        <li><a href="labs/xss-lab.html">Lab 2: XSS Vulnerable Comment Box</a></li>
+        <li><a href="labs/admin-bypass.html">Lab 3: Admin Panel Bypass</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- ✅ Footer -->
+  <footer>
+    <p>© 2025 HackOps Academy. Created by Cyber Ghost (Rajput Lekhraj Singh)</p>
+  </footer>
+</div>
+
+<!-- ✅ JavaScript -->
+<script>
+  const user = localStorage.getItem("authUser");
+  if (user) {
+    document.getElementById("userDisplay").textContent = user;
+  }
+
+  function logout() {
+    localStorage.removeItem("authUser");
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "login.html";
+  }
+</script>
+
+</body>
+</html>
