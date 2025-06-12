@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SQL Injection | HackOps Academy</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>📚 HackOps Academy - SQL Injection</h1>
+    <nav>
+      <a href="../index.html">Home</a> |
+      <a href="../dashboard.html">Dashboard</a> |
+      <a href="sql-injection.html">This Note</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>🔓 What is SQL Injection?</h2>
+      <p>
+        SQL Injection (SQLi) is a vulnerability that allows attackers to interfere with queries made to a database by injecting malicious SQL code.
+      </p>
+
+      <h3>🧠 Real-World Impact</h3>
+      <ul>
+        <li>Bypass login pages</li>
+        <li>Dump entire databases</li>
+        <li>Delete or modify data</li>
+      </ul>
+
+      <h3>🧪 Common Payloads</h3>
+      <pre>
+' OR 1=1 --
+admin' -- 
+' UNION SELECT null, version() --
+      </pre>
+
+      <h3>🔐 Bypassing Logins</h3>
+      <p>
+        Input fields like <code>username</code> and <code>password</code> can be tested with:
+      </p>
+      <pre>
+' OR 'a'='a
+      </pre>
+
+      <h3>💡 Advanced Payload</h3>
+      <pre>
+' UNION SELECT username, password FROM users --
+      </pre>
+
+      <h3>🛡️ Defense Mechanisms</h3>
+      <ul>
+        <li>Use prepared statements (parameterized queries)</li>
+        <li>Validate and sanitize inputs</li>
+        <li>Use ORM frameworks like SQLAlchemy</li>
+      </ul>
+
+      <h3>💡 Tip</h3>
+      <blockquote>Try injecting payloads in input fields, URL parameters, or hidden fields.</blockquote>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
+  </footer>
+</body>
+</html>
