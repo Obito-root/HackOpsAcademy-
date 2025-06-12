@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 2: XSS Comment Box</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🧪 Lab 2: XSS Vulnerable Comment Box</h1>
+    <p>Try injecting scripts like <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></p>
+    <a href="../index.html">← Back to Home</a>
+  </header>
+
+  <main>
+    <form onsubmit="addComment(); return false;">
+      <label>Name:</label><br>
+      <input type="text" id="name"><br><br>
+      <label>Comment:</label><br>
+      <textarea id="comment" rows="4" cols="40"></textarea><br><br>
+      <button type="submit">Post Comment</button>
+    </form>
+
+    <hr>
+
+    <h3>📜 Comments:</h3>
+    <div id="commentBox"></div>
+  </main>
+
+  <script>
+    function addComment() {
+      var name = document.getElementById("name").value;
+      var comment = document.getElementById("comment").value;
+
+      var commentHTML = "<p><strong>" + name + ":</strong> " + comment + "</p>";
+      document.getElementById("commentBox").innerHTML += commentHTML;
+    }
+  </script>
+</body>
+</html>
