@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard | HackOps Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Inline minimal styles for dashboard layout - you can move to CSS file */
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: #121212;
+      color: #e0e0e0;
+      margin: 0; padding: 0;
+    }
+    header, footer {
+      background-color: #111;
+      text-align: center;
+      padding: 20px;
+      border-bottom: 2px solid #00ffae;
+    }
+    h1 {
+      margin: 0;
+    }
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+    .progress-bar {
+      background-color: #333;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 20px;
+      margin-bottom: 30px;
+    }
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #00ffae, #00cc88);
+      height: 100%;
+      width: 0%;
+      transition: width 0.6s ease;
+    }
+    .chapter-list {
+      list-style: none;
+      padding: 0;
+    }
+    .chapter-item {
+      background-color: #1e1e1e;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+    .chapter-item.completed {
+      border-left: 6px solid #00ffae;
+      cursor: pointer;
+    }
+    .chapter-item.locked {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .chapter-item a {
+      color: #00ffae;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .chapter-item a:hover {
+      text-decoration: underline;
+    }
+    .status {
+      font-size: 1.2em;
+      user-select: none;
+    }
+    @media(max-width: 600px) {
+      main {
+        padding: 0 10px;
+      }
+      .chapter-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .status {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔐 HackOps Academy Dashboard</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2>Your Learning Progress</h2>
+      <div class="progress-bar" aria-label="Learning progress bar">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <ul class="chapter-list" id="chapterList">
+        <!-- Chapters will be populated here by JS -->
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
+  </footer>
+
+  <script>
+    // Define all chapters with keys and display info
+    const chapters = [
+      { key: "intro", title: "Introduction to Ethical Hacking", url: "academy/intro.html" },
+      { key: "linux", title: "How Linux Commands Work", url: "academy/commands.html" },
+      { key: "networking", title: "Introduction to Networking", url: "academy/networking.html" },
+      // Add more chapters here as you build them
+      // Example:
+      // { key: "tools", title: "Essential Hacking Tools", url: "academy/tools.html" },
+      // { key: "sql", title: "SQL Injection Basics", url: "academy/sql-injection.html" },
+    ];
+
+    // Retrieve quizProgress object from localStorage or empty
+    const quizProgress = JSON.parse(localStorage.getItem("quizProgress")) || {};
+
+    const chapterListEl = document.getElementById("chapterList");
+    const progressFillEl = document.getElementById("progressFill");
+
+    // Calculate completed count
+    const completedCount = chapters.reduce((count, ch) => {
+      return count + (quizProgress[ch.key] === true ? 1 : 0);
+    }, 0);
+
+    // Calculate percentage
+    const completionPercent = Math.round((completedCount / chapters.length) * 100);
+
+    // Set progress bar width
+    progressFillEl.style.width = `${completionPercent}%`;
+
+    // Show chapters with status and links (only unlocked chapters are clickable)
+    chapters.forEach(ch => {
+      const li = document.createElement("li");
+      li.classList.add("chapter-item");
+
+      const completed = quizProgress[ch.key] === true;
+      if (completed) {
+        li.classList.add("completed");
+        li.innerHTML = `
+          <span>${ch.title}</span>
+          <span class="status" title="Completed">✅ Completed</span>
+        `;
+        // Make the whole item clickable to go to chapter
+        li.style.cursor = "pointer";
+        li.addEventListener("click", () => {
+          window.location.href = ch.url;
+        });
+      } else {
+        li.classList.add("locked");
+        li.innerHTML = `
+          <span>${ch.title}</span>
+          <span class="status" title="Locked">🔒 Locked</span>
+        `;
+      }
+
+      chapterListEl.appendChild(li);
+    });
+  </script>
+  <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+<!-- Firebase Init -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAAlgR8b99MqimCwjarDHoS7dHZb-mFEnU",
+    authDomain: "hackopsauthsystem.firebaseapp.com",
+    projectId: "hackopsauthsystem",
+    storageBucket: "hackopsauthsystem.firebasestorage.app",
+    messagingSenderId: "352126488925",
+    appId: "1:352126488925:web:fa7a3ab7a1e87447be18b4",
+    measurementId: "G-Y34RFR893Q"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<!-- Auth Check & Progress Logic -->
+<script>
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (!user) {
+      window.location.href = "login.html"; // Redirect if not logged in
+    } else {
+      // Show user email in header (optional)
+      const header = document.querySelector("header");
+      const emailBadge = document.createElement("p");
+      emailBadge.textContent = `👤 Logged in as: ${user.email}`;
+      emailBadge.style.fontSize = "14px";
+      emailBadge.style.color = "#00ffae";
+      header.appendChild(emailBadge);
+    }
+  });
+
+  // Logout function
+  function logout() {
+    firebase.auth().signOut().then(() => {
+      localStorage.removeItem("isLoggedIn");
+      localStorage.removeItem("authUser");
+      window.location.href = "login.html";
+    });
+  }
+
+  // Add logout button
+  const footer = document.querySelector("footer");
+  const logoutBtn = document.createElement("button");
+  logoutBtn.textContent = "🚪 Logout";
+  logoutBtn.style.marginTop = "10px";
+  logoutBtn.style.padding = "8px 12px";
+  logoutBtn.style.border = "none";
+  logoutBtn.style.backgroundColor = "#00ffae";
+  logoutBtn.style.color = "#121212";
+  logoutBtn.style.fontWeight = "bold";
+  logoutBtn.style.cursor = "pointer";
+  logoutBtn.onclick = logout;
+  footer.appendChild(logoutBtn);
+</script>
+<script type="module" src="register.js"></script>
+</body>
+</html>
