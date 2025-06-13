@@ -53,11 +53,62 @@
 
       <h3>💡 Tip</h3>
       <blockquote>Use <code>nmap -p 80,443,8080 [target]</code> to scan these common web service ports.</blockquote>
+
+      <hr>
+
+      <h3>📝 Quiz - Web Service Ports</h3>
+      <form id="portsQuizForm">
+        <p><strong>1. Which port is used for secure web traffic?</strong></p>
+        <label><input type="radio" name="q1" value="a"> 80</label><br>
+        <label><input type="radio" name="q1" value="b"> 443</label><br>
+        <label><input type="radio" name="q1" value="c"> 8080</label><br><br>
+
+        <p><strong>2. What is port 8080 commonly used for?</strong></p>
+        <label><input type="radio" name="q2" value="a"> DNS queries</label><br>
+        <label><input type="radio" name="q2" value="b"> Proxy or alternate HTTP</label><br>
+        <label><input type="radio" name="q2" value="c"> Email transfer</label><br><br>
+
+        <button type="submit">✅ Submit Quiz</button>
+        <p id="quizResult" style="margin-top: 10px; font-weight: bold;"></p>
+      </form>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
   </footer>
+
+  <script>
+    document.getElementById("portsQuizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const result = document.getElementById("quizResult");
+
+      if (!q1 || !q2) {
+        result.textContent = "⚠️ Please answer all questions.";
+        return;
+      }
+
+      let score = 0;
+      if (q1.value === "b") score++;
+      if (q2.value === "b") score++;
+
+      if (score === 2) {
+        result.textContent = "✅ Well done! You scored 2/2. Progress saved.";
+
+        const quizProgress = JSON.parse(localStorage.getItem("quizProgress")) || {};
+        quizProgress.ports = true;
+        localStorage.setItem("quizProgress", JSON.stringify(quizProgress));
+
+        setTimeout(() => {
+          window.location.href = "../dashboard.html";
+        }, 2000);
+      } else {
+        result.textContent = `❌ You scored ${score}/2. Review the table above and try again.`;
+      }
+    });
+  </script>
 </body>
 </html>
