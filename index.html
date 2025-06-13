@@ -24,6 +24,8 @@
 <nav class="sidebar" id="sidebar">
   <h2>📂 Topics</h2>
   <ul>
+    <li><a href="dashboard.html">📊 Dashboard</a></li>
+    
     <li><strong>Beginner</strong></li>
     <li><a href="beginner/sql-injection.html">SQL Injection</a></li>
     <li><a href="beginner/xss.html">XSS</a></li>
@@ -47,6 +49,7 @@
       <div class="hero-content">
         <h1 class="hacker-title" id="tapTarget">Welcome to<br>HackOps Academy</h1>
         <p class="typewriter">Learn Ethical Hacking</p>
+        <a href="dashboard.html" class="btn btn-primary" style="margin-top: 15px; display: inline-block;">📊 Go to Dashboard</a>
       </div>
     </section>
   </header>
@@ -80,7 +83,7 @@
 <script>
   const user = localStorage.getItem("authUser");
   if (user) {
-    document.getElementById("userDisplay").textContent = user;
+    document.getElementById("userDisplay")?.textContent = user;
   }
 
   function logout() {
