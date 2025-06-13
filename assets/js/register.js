@@ -1,7 +1,13 @@
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification
+} from "./firebase.js";
+
 document.getElementById("registerForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const username = document.getElementById("newUsername").value.trim();
+  const email = document.getElementById("newEmail").value.trim();
   const password = document.getElementById("newPassword").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
   const errorEl = document.getElementById("regError");
@@ -16,24 +22,20 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     return;
   }
 
-  // Load existing users or empty array
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-
-  // Check if username already exists
-  const userExists = users.find((user) => user.username === username);
-  if (userExists) {
-    errorEl.textContent = "❌ Username already taken.";
-    return;
-  }
-
-  // Add new user
-  users.push({ username, password });
-  localStorage.setItem("users", JSON.stringify(users));
-
-  // Login the user automatically
-  localStorage.setItem("authUser", username);
-  localStorage.setItem("isLoggedIn", "true");
-
-  // Redirect to dashboard
-  window.location.href = "dashboard.html";
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Send email verification
+      sendEmailVerification(userCredential.user)
+        .then(() => {
+          errorEl.style.color = "lime";
+          errorEl.textContent = "✅ Registration successful! Verify your email before logging in.";
+          // Optional: auto-redirect after few seconds
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 3000);
+        });
+    })
+    .catch((error) => {
+      errorEl.textContent = `❌ ${error.message}`;
+    });
 });
