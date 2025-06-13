@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Important Ports | HackOps Academy</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>🌐 HackOps Academy - Important Ports</h1>
+    <nav>
+      <a href="../index.html">Home</a> |
+      <a href="beginner.html">← Back to Chapters</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>🔌 Chapter 5: Web Service Ports (HTTP/HTTPS)</h2>
+      <p>Different services run on specific ports. Recognizing them is crucial in reconnaissance and scanning stages of ethical hacking.</p>
+
+      <h3>🗂️ Common Web Ports</h3>
+      <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Port</th>
+            <th>Protocol</th>
+            <th>Service</th>
+            <th>Use</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>80</td>
+            <td>TCP</td>
+            <td>HTTP</td>
+            <td>Standard web browsing</td>
+          </tr>
+          <tr>
+            <td>443</td>
+            <td>TCP</td>
+            <td>HTTPS</td>
+            <td>Secure web browsing</td>
+          </tr>
+          <tr>
+            <td>8080</td>
+            <td>TCP</td>
+            <td>HTTP-Alt / Proxy</td>
+            <td>Used for proxies</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>💡 Tip</h3>
+      <blockquote>Use <code>nmap -p 80,443,8080 [target]</code> to scan these common web service ports.</blockquote>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
+  </footer>
+</body>
+</html>
