@@ -17,13 +17,15 @@
   <main>
     <section>
       <h2>💥 What is XSS?</h2>
-      <p>Cross-site scripting (XSS) is a client-side code injection vulnerability...</p>
+      <p>
+        Cross-site scripting (XSS) is a client-side code injection vulnerability that allows an attacker to execute malicious scripts in a victim’s browser.
+      </p>
       
       <h3>🧪 Types of XSS</h3>
       <ul>
-        <li><strong>Stored XSS</strong>: Payload stored in DB</li>
-        <li><strong>Reflected XSS</strong>: Payload reflected from request</li>
-        <li><strong>DOM-based XSS</strong>: Exploiting browser-side JS</li>
+        <li><strong>Stored XSS</strong>: Payload is permanently stored on the server (e.g., database)</li>
+        <li><strong>Reflected XSS</strong>: Payload is reflected off the server in an error message, search result, etc.</li>
+        <li><strong>DOM-based XSS</strong>: Payload is executed due to insecure JavaScript handling on the browser side</li>
       </ul>
 
       <h3>📌 Example Payload</h3>
@@ -33,18 +35,69 @@
 
       <h3>🛡️ Prevention</h3>
       <ul>
-        <li>Use proper output encoding</li>
-        <li>Sanitize inputs</li>
-        <li>Use CSP (Content Security Policy)</li>
+        <li>Use proper output encoding (HTML/JS/CSS/URL-specific)</li>
+        <li>Sanitize and validate all inputs</li>
+        <li>Implement CSP (Content Security Policy)</li>
       </ul>
 
       <h3>💡 Tip</h3>
-      <blockquote>Try injecting payloads in input fields, URL parameters, or hidden fields.</blockquote>
+      <blockquote>Try injecting payloads in search bars, comment sections, or any input field rendered into HTML.</blockquote>
+
+      <hr>
+
+      <h3>📝 Quiz - Test Your XSS Knowledge</h3>
+      <form id="xssQuizForm">
+        <p><strong>1. What does XSS allow attackers to do?</strong></p>
+        <label><input type="radio" name="q1" value="a"> Scan ports</label><br>
+        <label><input type="radio" name="q1" value="b"> Execute code in a user’s browser</label><br>
+        <label><input type="radio" name="q1" value="c"> Shutdown the server</label><br><br>
+
+        <p><strong>2. Which type of XSS occurs entirely in the browser through insecure JS?</strong></p>
+        <label><input type="radio" name="q2" value="a"> DOM-based XSS</label><br>
+        <label><input type="radio" name="q2" value="b"> Reflected XSS</label><br>
+        <label><input type="radio" name="q2" value="c"> Stored XSS</label><br><br>
+
+        <button type="submit">✅ Submit Quiz</button>
+        <p id="quizResult" style="margin-top: 10px; font-weight: bold;"></p>
+      </form>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
   </footer>
+
+  <script>
+    document.getElementById("xssQuizForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const result = document.getElementById("quizResult");
+
+      if (!q1 || !q2) {
+        result.textContent = "⚠️ Please answer all questions.";
+        return;
+      }
+
+      let score = 0;
+      if (q1.value === "b") score++;
+      if (q2.value === "a") score++;
+
+      if (score === 2) {
+        result.textContent = "✅ Excellent! You scored 2/2. Progress saved.";
+
+        const quizProgress = JSON.parse(localStorage.getItem("quizProgress")) || {};
+        quizProgress.xss = true;
+        localStorage.setItem("quizProgress", JSON.stringify(quizProgress));
+
+        setTimeout(() => {
+          window.location.href = "../dashboard.html";
+        }, 2000);
+      } else {
+        result.textContent = `❌ You scored ${score}/2. Review the notes and try again.`;
+      }
+    });
+  </script>
 </body>
 </html>
