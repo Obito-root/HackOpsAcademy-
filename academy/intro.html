@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Introduction to Hacking | HackOps Academy</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <meta charset="UTF-8" />
+  <title>Chapter 1: Introduction | HackOps Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
   <header>
-    <h1>📗 HackOps Academy - Introduction</h1>
+    <h1>📗 HackOps Academy - Chapter 1</h1>
     <nav>
-      <a href="../index.html">Home</a> |
+      <a href="../index.html">🏠 Home</a> |
       <a href="beginner.html">← Back to Chapters</a>
     </nav>
   </header>
@@ -31,11 +32,63 @@
       <p>As a future ethical hacker, you'll dive deep into tools, techniques, and mindset needed to hack legally and responsibly.</p>
 
       <blockquote>“With great power comes great responsibility.” – Uncle Ben</blockquote>
+
+      <hr>
+
+      <h3>📝 Quick Quiz - Test Your Basics</h3>
+      <form id="introQuiz">
+        <p><strong>1. Who is a White Hat Hacker?</strong></p>
+        <label><input type="radio" name="q1" value="a"> A malicious hacker</label><br>
+        <label><input type="radio" name="q1" value="b"> An ethical hacker</label><br>
+        <label><input type="radio" name="q1" value="c"> A script kiddie</label><br><br>
+
+        <p><strong>2. What is the role of ethical hacking?</strong></p>
+        <label><input type="radio" name="q2" value="a"> To steal data</label><br>
+        <label><input type="radio" name="q2" value="b"> To secure systems by testing them</label><br>
+        <label><input type="radio" name="q2" value="c"> To delete data</label><br><br>
+
+        <button type="submit">✅ Submit Quiz</button>
+        <p id="result" style="margin-top: 10px; font-weight: bold;"></p>
+      </form>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
   </footer>
+
+  <script>
+    document.getElementById("introQuiz").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const answer1 = document.querySelector('input[name="q1"]:checked');
+      const answer2 = document.querySelector('input[name="q2"]:checked');
+      const result = document.getElementById("result");
+
+      // If questions are not fully answered
+      if (!answer1 || !answer2) {
+        result.textContent = "⚠️ Please answer all questions.";
+        return;
+      }
+
+      let score = 0;
+      if (answer1.value === "b") score++;
+      if (answer2.value === "b") score++;
+
+      if (score === 2) {
+        result.textContent = "✅  Well done! You scored 2/2. Progress saved.";
+
+        const quizProgress = JSON.parse(localStorage.getItem("quizProgress")) || {};
+        quizProgress.intro = true;
+        localStorage.setItem("quizProgress", JSON.stringify(quizProgress));
+
+        setTimeout(() => {
+          window.location.href = "../dashboard.html";
+        }, 2000);
+      } else {
+        result.textContent = `❌ You scored ${score}/2. Try again!`;
+      }
+    });
+  </script>
 </body>
 </html>
