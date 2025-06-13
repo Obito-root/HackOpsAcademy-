@@ -39,11 +39,62 @@
 
       <h3>💡 Tip</h3>
       <blockquote>Set up a Linux-based environment (like Kali Linux) and install these tools to get hands-on experience safely in a lab setup.</blockquote>
+
+      <hr>
+
+      <h3>📝 Quiz - Test Your Tools Knowledge</h3>
+      <form id="toolsQuizForm">
+        <p><strong>1. What category does Nmap belong to?</strong></p>
+        <label><input type="radio" name="q1" value="a"> Exploitation</label><br>
+        <label><input type="radio" name="q1" value="b"> Information Gathering</label><br>
+        <label><input type="radio" name="q1" value="c"> Vulnerability Analysis</label><br><br>
+
+        <p><strong>2. Which tool is used for exploitation?</strong></p>
+        <label><input type="radio" name="q2" value="a"> Metasploit</label><br>
+        <label><input type="radio" name="q2" value="b"> Nessus</label><br>
+        <label><input type="radio" name="q2" value="c"> Nmap</label><br><br>
+
+        <button type="submit">✅ Submit Quiz</button>
+        <p id="quizResult" style="margin-top: 10px; font-weight: bold;"></p>
+      </form>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
   </footer>
+
+  <script>
+    document.getElementById("toolsQuizForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const result = document.getElementById("quizResult");
+
+      if (!q1 || !q2) {
+        result.textContent = "⚠️ Please answer all questions.";
+        return;
+      }
+
+      let score = 0;
+      if (q1.value === "b") score++;
+      if (q2.value === "a") score++;
+
+      if (score === 2) {
+        result.textContent = "✅ Perfect! You scored 2/2. Progress saved.";
+
+        const quizProgress = JSON.parse(localStorage.getItem("quizProgress")) || {};
+        quizProgress.tools = true;
+        localStorage.setItem("quizProgress", JSON.stringify(quizProgress));
+
+        setTimeout(() => {
+          window.location.href = "../dashboard.html";
+        }, 2000);
+      } else {
+        result.textContent = `❌ You scored ${score}/2. Review the notes and try again.`;
+      }
+    });
+  </script>
 </body>
 </html>
