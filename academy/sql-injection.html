@@ -30,8 +30,8 @@
 
       <h3>🧪 Common Payloads</h3>
       <pre>
-' OR 1=1 --
-admin' -- 
+' OR 1=1 --  
+admin' --   
 ' UNION SELECT null, version() --
       </pre>
 
@@ -57,11 +57,62 @@ admin' --
 
       <h3>💡 Tip</h3>
       <blockquote>Try injecting payloads in input fields, URL parameters, or hidden fields.</blockquote>
+
+      <hr>
+
+      <h3>📝 Quiz - Test Your SQLi Knowledge</h3>
+      <form id="sqliQuizForm">
+        <p><strong>1. What does this payload do? <code>' OR 1=1 --</code></strong></p>
+        <label><input type="radio" name="q1" value="a"> Deletes the database</label><br>
+        <label><input type="radio" name="q1" value="b"> Logs the user in by bypassing authentication</label><br>
+        <label><input type="radio" name="q1" value="c"> Encrypts the password</label><br><br>
+
+        <p><strong>2. What is the best way to prevent SQL injection?</strong></p>
+        <label><input type="radio" name="q2" value="a"> Escape user inputs manually</label><br>
+        <label><input type="radio" name="q2" value="b"> Use prepared statements (parameterized queries)</label><br>
+        <label><input type="radio" name="q2" value="c"> Use admin login</label><br><br>
+
+        <button type="submit">✅ Submit Quiz</button>
+        <p id="quizResult" style="margin-top: 10px; font-weight: bold;"></p>
+      </form>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
   </footer>
+
+  <script>
+    document.getElementById("sqliQuizForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const result = document.getElementById("quizResult");
+
+      if (!q1 || !q2) {
+        result.textContent = "⚠️ Please answer all questions.";
+        return;
+      }
+
+      let score = 0;
+      if (q1.value === "b") score++;
+      if (q2.value === "b") score++;
+
+      if (score === 2) {
+        result.textContent = "✅ Perfect! You scored 2/2. Progress saved.";
+
+        const quizProgress = JSON.parse(localStorage.getItem("quizProgress")) || {};
+        quizProgress.sqli = true;
+        localStorage.setItem("quizProgress", JSON.stringify(quizProgress));
+
+        setTimeout(() => {
+          window.location.href = "../dashboard.html";
+        }, 2000);
+      } else {
+        result.textContent = `❌ You scored ${score}/2. Review the material and try again.`;
+      }
+    });
+  </script>
 </body>
 </html>
