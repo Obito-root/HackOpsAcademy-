@@ -41,11 +41,62 @@
 
       <h3>💡 Tip</h3>
       <blockquote>Use tools like <code>ip a</code>, <code>ping</code>, <code>traceroute</code>, and <code>netstat</code> to explore how networking works on your system.</blockquote>
+
+      <hr>
+
+      <h3>📝 Quiz - Networking Basics</h3>
+      <form id="networkingQuizForm">
+        <p><strong>1. Which layer of the OSI model is responsible for routing?</strong></p>
+        <label><input type="radio" name="q1" value="a"> Transport</label><br>
+        <label><input type="radio" name="q1" value="b"> Network</label><br>
+        <label><input type="radio" name="q1" value="c"> Session</label><br><br>
+
+        <p><strong>2. What does a MAC address represent?</strong></p>
+        <label><input type="radio" name="q2" value="a"> A device’s Internet identity</label><br>
+        <label><input type="radio" name="q2" value="b"> A website’s domain</label><br>
+        <label><input type="radio" name="q2" value="c"> A device’s hardware identity</label><br><br>
+
+        <button type="submit">✅ Submit Quiz</button>
+        <p id="quizResult" style="margin-top: 10px; font-weight: bold;"></p>
+      </form>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
   </footer>
+
+  <script>
+    document.getElementById("networkingQuizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const result = document.getElementById("quizResult");
+
+      if (!q1 || !q2) {
+        result.textContent = "⚠️ Please answer all questions.";
+        return;
+      }
+
+      let score = 0;
+      if (q1.value === "b") score++;
+      if (q2.value === "c") score++;
+
+      if (score === 2) {
+        result.textContent = "✅ Well done! You scored 2/2. Progress saved.";
+
+        const quizProgress = JSON.parse(localStorage.getItem("quizProgress")) || {};
+        quizProgress.networking = true;
+        localStorage.setItem("quizProgress", JSON.stringify(quizProgress));
+
+        setTimeout(() => {
+          window.location.href = "../dashboard.html";
+        }, 2000);
+      } else {
+        result.textContent = `❌ You scored ${score}/2. Please review the content and try again.`;
+      }
+    });
+  </script>
 </body>
 </html>
