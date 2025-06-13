@@ -20,13 +20,10 @@
       <p>Linux commands follow a structured syntax to perform powerful actions. Understanding this structure is essential for every ethical hacker.</p>
 
       <h3>⚙️ Basic Structure</h3>
-      <pre>
-[command] [subcommand] [argument] [option/flag]
-      </pre>
+      <pre>[command] [subcommand] [argument] [option/flag]</pre>
+
       <p><strong>Example:</strong></p>
-      <pre>
-apt install nmap -y
-      </pre>
+      <pre>apt install nmap -y</pre>
 
       <h3>🔍 Breakdown</h3>
       <ul>
@@ -38,11 +35,62 @@ apt install nmap -y
 
       <h3>💡 Tip</h3>
       <blockquote>Always read the <code>--help</code> section of a command to explore all available flags and options. For example, try: <code>nmap --help</code></blockquote>
+
+      <hr>
+
+      <h3>📝 Quiz - Test Your Linux Basics</h3>
+      <form id="linuxQuizForm">
+        <p><strong>1. What is the role of the <code>-y</code> flag in the command <code>apt install nmap -y</code>?</strong></p>
+        <label><input type="radio" name="q1" value="a"> It removes the package silently</label><br>
+        <label><input type="radio" name="q1" value="b"> It shows help about the package</label><br>
+        <label><input type="radio" name="q1" value="c"> It auto-confirms the installation</label><br><br>
+
+        <p><strong>2. In the structure <code>[command] [subcommand] [argument] [option]</code>, what is <code>install</code> in <code>apt install nmap</code>?</strong></p>
+        <label><input type="radio" name="q2" value="a"> Argument</label><br>
+        <label><input type="radio" name="q2" value="b"> Subcommand</label><br>
+        <label><input type="radio" name="q2" value="c"> Flag</label><br><br>
+
+        <button type="submit">✅ Submit Answers</button>
+        <p id="quizResult" style="margin-top: 10px; font-weight: bold;"></p>
+      </form>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 HackOps Academy. Built by Rajput Lekhraj Singh aka Cyber Ghost 🔐</p>
   </footer>
+
+  <script>
+    document.getElementById("linuxQuizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const q1 = document.querySelector('input[name="q1"]:checked');
+      const q2 = document.querySelector('input[name="q2"]:checked');
+      const result = document.getElementById("quizResult");
+
+      if (!q1 || !q2) {
+        result.textContent = "⚠️ Please answer all questions.";
+        return;
+      }
+
+      let score = 0;
+      if (q1.value === "c") score++;
+      if (q2.value === "b") score++;
+
+      if (score === 2) {
+        result.textContent = "✅ Well done! You scored 2/2. Progress saved.";
+
+        const quizProgress = JSON.parse(localStorage.getItem("quizProgress")) || {};
+        quizProgress.linux = true;
+        localStorage.setItem("quizProgress", JSON.stringify(quizProgress));
+
+        setTimeout(() => {
+          window.location.href = "../dashboard.html";
+        }, 2000);
+      } else {
+        result.textContent = `❌ You scored ${score}/2. Try again to unlock full credit.`;
+      }
+    });
+  </script>
 </body>
 </html>
