@@ -2,22 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - HackOps</title>
+  <title>Login | HackOps Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="assets/css/style.css" />
-</head>
-<body>
-  <section class="login-box">
-    <h2>🔐 Login to HackOps</h2>
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="User ID" autocomplete="username" required />
-      <input type="password" id="password" placeholder="Password" autocomplete="current-password" required />
-      <button type="submit">Login</button>
-      <p id="error" style="color: red;"></p>
-      <p>New user? <a href="register.html">Create an account</a></p>
-    </form>
-  </section>
 
-  <script src="assets/js/auth.js"></script>
+  <!-- Login script using Firebase (modular SDK) -->
+  <script type="module" src="login.js" defer></script>
+</head>
+<body style="font-family: monospace; background: #121212; color: #eee; padding: 30px; text-align: center;">
+
+  <main style="max-width: 400px; margin: auto; background: #1e1e1e; padding: 30px; border-radius: 12px; box-shadow: 0 0 12px #00ffae;">
+    <h2 style="color: #00ffae;">🔐 Login to HackOps Academy</h2>
+
+    <form id="loginForm" style="margin-top: 30px;">
+      <input type="email" id="email" placeholder="📧 Email" required style="padding: 10px; width: 100%; margin-bottom: 15px; border-radius: 6px; border: none;" />
+      <input type="password" id="password" placeholder="🔑 Password" required style="padding: 10px; width: 100%; margin-bottom: 15px; border-radius: 6px; border: none;" />
+      <button type="submit" style="padding: 10px 20px; background: #00ffae; color: black; border: none; border-radius: 6px; cursor: pointer;">Login</button>
+      <p id="error" style="color: red; margin-top: 15px;"></p>
+    </form>
+
+    <p style="margin-top: 20px;">Don't have an account? <a href="register.html" style="color: #00ffae;">Register</a></p>
+  </main>
+
 </body>
 </html>
