@@ -3,36 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <title>Register | HackOps Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script type="module" src="register.js"></script>
 </head>
-<body>
-  <main style="max-width: 400px; margin: 100px auto;">
-    <h2>📝 Register for HackOps Academy</h2>
-    <form id="registerForm">
-      <input type="email" id="regEmail" placeholder="Email" required><br><br>
-      <input type="password" id="regPassword" placeholder="Password" required><br><br>
-      <button type="submit">Register</button>
-      <p id="regError" style="color: red;"></p>
+<body style="font-family: monospace; background: #121212; color: #eee; padding: 30px;">
+
+  <main style="max-width: 400px; margin: 80px auto; background: #1e1e1e; padding: 30px; border-radius: 12px; box-shadow: 0 0 12px #00ffae;">
+    <h2 style="color: #00ffae;">📝 Register for HackOps Academy</h2>
+
+    <form id="registerForm" style="margin-top: 20px;">
+      <input type="email" id="regEmail" placeholder="📧 Email" required style="padding: 10px; width: 100%; margin-bottom: 10px; border-radius: 6px; border: none;" />
+      <input type="password" id="regPassword" placeholder="🔑 Password" required style="padding: 10px; width: 100%; margin-bottom: 10px; border-radius: 6px; border: none;" />
+      <input type="password" id="confirmPassword" placeholder="🔁 Confirm Password" required style="padding: 10px; width: 100%; margin-bottom: 15px; border-radius: 6px; border: none;" />
+      <button type="submit" style="padding: 10px 20px; background: #00ffae; color: black; border: none; border-radius: 6px; cursor: pointer;">Register</button>
+      <p id="regError" style="color: red; margin-top: 15px;"></p>
     </form>
-    <form id="registerForm">
-  <input type="email" id="newEmail" placeholder="Enter your email" required><br>
-  <input type="password" id="newPassword" placeholder="Enter password" required><br>
-  <input type="password" id="confirmPassword" placeholder="Confirm password" required><br>
-  <button type="submit">Register</button>
-  <p id="regError" style="color: red; margin-top: 10px;"></p>
-</form>
-    <p>Already have an account? <a href="login.html">Login</a></p>
+
+    <p style="margin-top: 20px;">Already have an account? <a href="login.html" style="color: #00ffae;">Login</a></p>
   </main>
 
   <script>
+    // 🚨 WARNING: Do not expose real API key in production!
     const firebaseConfig = {
       apiKey: "AIzaSyAAlgR8b99MqimCwjarDHoS7dHZb-mFEnU",
       authDomain: "hackopsauthsystem.firebaseapp.com",
       projectId: "hackopsauthsystem",
-      storageBucket: "hackopsauthsystem.firebasestorage.app",
+      storageBucket: "hackopsauthsystem.appspot.com",
       messagingSenderId: "352126488925",
       appId: "1:352126488925:web:fa7a3ab7a1e87447be18b4",
       measurementId: "G-Y34RFR893Q"
@@ -45,12 +45,31 @@
 
       const email = document.getElementById("regEmail").value.trim();
       const password = document.getElementById("regPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
       const errorEl = document.getElementById("regError");
+
+      errorEl.textContent = ""; // Clear old error
+
+      if (password !== confirmPassword) {
+        errorEl.textContent = "❌ Passwords do not match.";
+        return;
+      }
+
+      if (password.length < 6) {
+        errorEl.textContent = "❌ Password must be at least 6 characters.";
+        return;
+      }
 
       firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-          alert("✅ Registration successful!");
-          window.location.href = "login.html";
+          userCredential.user.sendEmailVerification()
+            .then(() => {
+              alert("✅ Registration successful! Please verify your email.");
+              window.location.href = "login.html";
+            })
+            .catch((error) => {
+              errorEl.textContent = `⚠️ Failed to send verification: ${error.message}`;
+            });
         })
         .catch((error) => {
           errorEl.textContent = `❌ ${error.message}`;
