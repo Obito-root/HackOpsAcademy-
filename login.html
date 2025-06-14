@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="assets/css/style.css" />
 
-  <!-- Login script using Firebase (modular SDK) -->
-   <script type="module" src="assets/js/firebase.js"></script>
-  <script type="module" src="login.js" defer></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
 <body style="font-family: monospace; background: #121212; color: #eee; padding: 30px; text-align: center;">
 
@@ -23,7 +23,65 @@
     </form>
 
     <p style="margin-top: 20px;">Don't have an account? <a href="register.html" style="color: #00ffae;">Register</a></p>
+    <p>Didn't get the email? <button id="resendBtn" type="button">📩 Resend Verification Email</button></p>
+    <p id="resendMsg" style="color: lime;"></p>
   </main>
 
+  <script>
+    // ✅ Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyAAlgR8b99MqimCwjarDHoS7dHZb-mFEnU",
+      authDomain: "hackopsauthsystem.firebaseapp.com",
+      projectId: "hackopsauthsystem",
+      storageBucket: "hackopsauthsystem.appspot.com",
+      messagingSenderId: "352126488925",
+      appId: "1:352126488925:web:fa7a3ab7a1e87447be18b4"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    // ✅ Login Logic
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const errorEl = document.getElementById("error");
+      const resendBtn = document.getElementById("resendBtn");
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+
+          if (!user.emailVerified) {
+            errorEl.textContent = "⚠️ Email not verified. Please check your inbox.";
+            resendBtn.style.display = "inline-block";
+          } else {
+            // ✅ Email is verified, proceed
+            localStorage.setItem("authUser", email);
+            localStorage.setItem("isLoggedIn", true);
+            window.location.href = "dashboard.html";
+          }
+        })
+        .catch((error) => {
+          errorEl.textContent = `❌ ${error.message}`;
+        });
+    });
+
+    // ✅ Resend Verification
+    document.getElementById("resendBtn").addEventListener("click", function () {
+      const user = firebase.auth().currentUser;
+
+      if (user && !user.emailVerified) {
+        user.sendEmailVerification()
+          .then(() => {
+            document.getElementById("resendMsg").textContent = "✅ Verification email sent!";
+          })
+          .catch((error) => {
+            document.getElementById("resendMsg").textContent = `❌ ${error.message}`;
+          });
+      }
+    });
+  </script>
 </body>
 </html>
