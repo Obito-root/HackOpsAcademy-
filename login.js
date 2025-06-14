@@ -1,7 +1,7 @@
 import {
   auth,
   signInWithEmailAndPassword
-} from "./firebase.js";
+} from "./assets/js/firebase.js";
 
 // ✅ This alert helps check if login.js is loading correctly
 alert("✅ login.js loaded!");
