@@ -25,31 +25,29 @@
   <h2>📂 Topics</h2>
   <ul>
     <li><a href="dashboard.html">📊 Dashboard</a></li>
-    
+
     <li><strong>Beginner</strong></li>
-    <li><a href="beginner/sql-injection.html">SQL Injection</a></li>
-    <li><a href="beginner/xss.html">XSS</a></li>
+    <li><a href="academy/beginner/sql-injection.html">SQL Injection</a></li>
+    <li><a href="academy/beginner/xss.html">XSS</a></li>
 
     <li><strong>Intermediate</strong></li>
-    <li><a href="intermediate/csrf.html">CSRF</a></li>
-    <li><a href="intermediate/jwt.html">JWT</a></li>
+    <li><a href="academy/intermediate/csrf.html">CSRF</a></li>
+    <li><a href="academy/intermediate/jwt.html">JWT</a></li>
 
     <li><strong>Advanced</strong></li>
-    <li><a href="advanced/ssrf.html">SSRF</a></li>
-    <li><a href="advanced/rce.html">RCE</a></li>
+    <li><a href="academy/advanced/ssrf.html">SSRF</a></li>
+    <li><a href="academy/advanced/rce.html">RCE</a></li>
   </ul>
 </nav>
 
 <!-- ✅ Content Wrapper -->
 <div class="content-wrapper">
-
-  <!-- ✅ Hero Section -->
   <header>
     <section class="hero">
       <div class="hero-content">
-        <h1 class="hacker-title" id="tapTarget">Welcome to<br>HackOps Academy</h1>
+        <h1 class="hacker-title">Welcome to<br>HackOps Academy</h1>
         <p class="typewriter">Learn Ethical Hacking</p>
-        <a href="dashboard.html" class="btn btn-primary" style="margin-top: 15px; display: inline-block;">📊 Go to Dashboard</a>
+        <a href="dashboard.html" class="btn btn-primary" style="margin-top: 15px;">📊 Go to Dashboard</a>
       </div>
     </section>
   </header>
@@ -79,13 +77,8 @@
   </footer>
 </div>
 
-<!-- ✅ JavaScript -->
+<!-- ✅ Logout Script -->
 <script>
-  const user = localStorage.getItem("authUser");
-  if (user) {
-    document.getElementById("userDisplay")?.textContent = user;
-  }
-
   function logout() {
     localStorage.removeItem("authUser");
     localStorage.removeItem("isLoggedIn");
