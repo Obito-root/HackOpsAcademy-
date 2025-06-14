@@ -3,9 +3,6 @@ import {
   signInWithEmailAndPassword
 } from "./assets/js/firebase.js";
 
-// ✅ This alert helps check if login.js is loading correctly
-alert("✅ login.js loaded!");
-
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("loginForm");
   const errorEl = document.getElementById("error");
@@ -25,13 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        // ✅ This alert confirms successful login before redirect
-        alert("✅ Login successful, redirecting to index.html...");
-
+        // Save login state
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("authUser", user.email);
 
-        window.location.href = "index.html";
+        // Redirect to home/dashboard
+        window.location.href = "./index.html";
       })
       .catch((error) => {
         errorEl.textContent = `❌ ${error.message}`;
